@@ -16,3 +16,10 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify -f mega-app/pom.xml
+      - name: Move artifact to staging
+        run: mkdir staging && cp mega-app/target/*.jar staging
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: staging
